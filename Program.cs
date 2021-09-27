@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Data;
+using System.IO;
+using System.Text;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-namespace CryptoStats
+namespace ConsoleStats
 {
     class Program
     {
@@ -14,10 +18,10 @@ namespace CryptoStats
             // on home pc, use C:/Users/carys/OneDrive - University of Arkansas/Business DevOps/Projects
             // on school network, use O:/Business DevOps/Projects
             // note that location slows down program as it has to pull from cloud--will also get warning that it is not
-            // a "safe" location for it...however, with THIS program, security in this aspect is unimportant
+            // a "safe" location for it...
 
             /* List of URLs used:
-             * https://blockchain.news/analysis/which-cryptocurrency-has-the-highest-roi-as-of-q1-2020-bitcoin-only-ranked-5th -- use xpath
+             * https://www.vgchartz.com/analysis/platform_totals/ -- uses table id
              * https://www.slickcharts.com/currency -- use table for class name
              * https://coincodex.com/historical-data/crypto/ -- use xpath
              * https://www.coingecko.com/en/coins/trending -- use xpath
@@ -34,25 +38,33 @@ namespace CryptoStats
 
                 Console.WriteLine("\n\nInitializing Source 1 ... Please wait ...\n\n");
 
-                driver.Url = "https://blockchain.news/analysis/which-cryptocurrency-has-the-highest-roi-as-of-q1-2020-bitcoin-only-ranked-5th";
+                driver.Url = "https://www.vgchartz.com/analysis/platform_totals/";
 
                 Console.WriteLine("Title: " + driver.Title + "\n");
 
                 Console.WriteLine("URL: " + driver.Url + "\n");
 
-                //Console.WriteLine(driver.PageSource);
+                DataTable dsOne = new DataTable();
+                dsOne.Clear();
 
-                IWebElement table = driver.FindElement(By.XPath("/html/body/div/div[2]/div/div/main/div[1]/div/div[1]/div/div[2]/div/table"));
 
+                IWebElement table = driver.FindElement(By.Id("myTable"));
+
+                
                 var rows = table.FindElements(By.TagName("tr"));
 
                 foreach (var row in rows)
                 {
+                    var ths = row.FindElements(By.TagName("th"));
                     var tds = row.FindElements(By.TagName("td"));
-
-                    foreach (var entry in tds)
+                    foreach (var entry in ths)
                     {
                         Console.Write(entry.Text + "\t");
+                    }
+                    foreach (var entry in tds)
+                    {
+                        Console.Write(entry.Text + "\t"); 
+        
                     }
 
                     Console.WriteLine();
@@ -71,26 +83,24 @@ namespace CryptoStats
 
                 Console.WriteLine("\n\nInitializing Source 2... Please wait ...\n\n");
 
-                driver.Url = "https://www.slickcharts.com/currency";
+                driver.Url = "https://thegamingsetup.com/guides/console-power-comparison-chart";
 
                 Console.WriteLine("Title: " + driver.Title + "\n");
 
                 Console.WriteLine("URL: " + driver.Url + "\n");
 
-                //Console.WriteLine(driver.PageSource);
+               
 
-                IWebElement table = driver.FindElement(By.ClassName("table")); //bad practice but they named the only table table...
+                IWebElement table = driver.FindElement(By.XPath("/html/body/div[2]/div/section[3]/div/div/div/section/div/div[1]/div/div[1]/div/div/div/section/div/div/div/div/div/table/tbody"));
+                Thread.Sleep(2000);
 
                 var rows = table.FindElements(By.TagName("tr"));
 
                 foreach (var row in rows)
                 {
-                    var ths = row.FindElements(By.TagName("th"));
+                    
                     var tds = row.FindElements(By.TagName("td"));
-                    foreach (var entry in ths)
-                    {
-                        Console.Write(entry.Text + "\t");
-                    }
+                  
                     foreach (var entry in tds)
                     {
                         Console.Write(entry.Text + "\t");
@@ -119,7 +129,7 @@ namespace CryptoStats
 
                 Console.WriteLine("URL: " + driver.Url + "\n");
 
-                //Console.WriteLine(driver.PageSource);
+               
 
                 IWebElement table = driver.FindElement(By.XPath("/html/body/app-root/app-historical-data/div/div/div[4]/div/div/table"));
 
@@ -157,7 +167,6 @@ namespace CryptoStats
 
                 Console.WriteLine("URL: " + driver.Url + "\n");
 
-                //Console.WriteLine(driver.PageSource);
 
                 IWebElement table = driver.FindElement(By.XPath("/html/body/div[3]/div[5]/div[1]/div"));
 
@@ -198,7 +207,7 @@ namespace CryptoStats
 
                 Console.WriteLine("URL: " + driver.Url + "\n");
 
-               // Console.WriteLine(driver.PageSource);
+              
 
                 IWebElement table = driver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[3]/div/div/div/table"));
 
@@ -230,17 +239,17 @@ namespace CryptoStats
 
             SourceOne();
             SourceTwo();
-            SourceThree();
-            SourceFour();
-            SourceFive();
+            //SourceThree();
+            //SourceFour();
+            //SourceFive();
 
             //now we just need to calculate meaningful indices from these sources vvvvvvvvvvvvvvv
 
             /* SOURCE 1 --
-             * Top 30 cryptos by ROI
+             * consoles by units sold in diff areas of the world (will focus on NA)
              * 
              * SOURCE 2 --
-             * Market cap, market share, price and 24 hour change in percentage of top 100 cryptos
+             * consoles by gpu fglops
              * 
              * SOURCE 3 --
              * Shows price, 24 h change, 7d change, 1m change, etc of top 100
@@ -251,7 +260,7 @@ namespace CryptoStats
              * SOURCE 5 --
              * Shows top crypto coins by trading volume
              */
-
+            Console.WriteLine();
 
         }
     }
