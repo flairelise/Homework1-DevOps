@@ -1,4 +1,4 @@
-#Homework1-DevOps
+Homework1-DevOps
 
 # University of Arkansas 🐖
 
