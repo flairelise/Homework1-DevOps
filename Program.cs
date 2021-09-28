@@ -9,24 +9,24 @@ using OpenQA.Selenium.Chrome;
 namespace ConsoleStats
 {
     class Program
-    {
-        static IWebDriver driver = new ChromeDriver("C:/Users/carys/OneDrive - University of Arkansas/Business DevOps/Projects");
+    {   
+        static IWebDriver driver = new ChromeDriver("C:/Users/carys/Documents");
         static void Main(string[] args)
         {
             Console.WriteLine("Initializing ... Please wait ...\n\n");
 
             Console.WriteLine("This program is intended only to scrub data from websites, display, and calculate indexes based on the data provided.\n");
 
-            // on home pc, use C:/Users/carys/OneDrive - University of Arkansas/Business DevOps/Projects
-            // on school network, use O:/Business DevOps/Projects
-            // note that location slows down program as it has to pull from cloud--will also get warning that it is not
-            // a "safe" location for it...
+            /*!!!!! WARNING:
+             * Please set location of chromedriver manually if project fails.
+             * LINE 13 -- edit path
+             */
 
             /* List of URLs used:
              * https://www.vgchartz.com/analysis/platform_totals/ 
              * https://thegamingsetup.com/guides/console-power-comparison-chart 
              * https://en.wikipedia.org/wiki/Video_game_publisher
-             * https://riseatseven.com/blog/xbox-series-x-v-ps5-worlds-most-in-demand-game-console-rise-at-seven/ 
+             * https://www.finder.com.au/in-demand-consoles
              * https://www.vgchartz.com/analysis/platform_totals/Software/Global/ 
              * 
              * Notes on what each link provides at bottom of code VVVV
