@@ -15,3 +15,8 @@ Carys Brown
 Also, be sure your chrome driver and chrome versions are compatible to be able to run this program.
 
 -------------
+
+Link to walkthrough:
+https://youtu.be/pQKUecYbEEg
+
+-------------
